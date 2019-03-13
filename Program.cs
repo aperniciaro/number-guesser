@@ -27,10 +27,6 @@ namespace number_guesser
           upper = guess - 1;
         }
         guess = (upper + lower) / 2;
-        if (guess == 0)
-        {
-          guess = 1;
-        }
       }
       Console.WriteLine($"Your number is {guess}!");
     }
