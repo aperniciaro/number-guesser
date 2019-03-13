@@ -11,6 +11,7 @@ namespace number_guesser
       var lower = min;
       var upper = max;
       var guess = (upper - lower) / 2;
+      var guessCount = 1;
       var response = "";
 
       Console.WriteLine($"Think of a number between {min} and {max}");
@@ -21,14 +22,20 @@ namespace number_guesser
         if (response == "higher")
         {
           lower = guess + 1;
+          guessCount++;
         }
         else if (response == "lower")
         {
-          upper = guess - 1;
+          upper = guess;
+          guessCount++;
         }
         guess = (upper + lower) / 2;
+        if (guess == 0)
+        {
+          guess = 1;
+        }
       }
-      Console.WriteLine($"Your number is {guess}!");
+      Console.WriteLine($"Your number is {guess}! It took me {guessCount} guesses.");
     }
   }
 }
