@@ -4,6 +4,15 @@ namespace number_guesser
 {
   class Program
   {
+    static void StartGame(int min, int max)
+    {
+      Console.WriteLine();
+      Console.WriteLine("Welcome! Press Enter to start a number guessing game.");
+      while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+
+      Console.WriteLine();
+      Console.WriteLine($"Think of a number between {min} and {max}");
+    }
     static void Main(string[] args)
     {
       var min = 0;
@@ -12,30 +21,63 @@ namespace number_guesser
       var upper = max;
       var guess = (upper - lower) / 2;
       var guessCount = 1;
-      var response = "";
+      var correct = false;
+      var yesOrNo = "";
+      var higherOrLower = "";
+      var playAgain = "";
 
-      Console.WriteLine($"Think of a number between {min} and {max}");
-      while (response != "equal")
+      StartGame(min, max);
+
+      while (correct == false)
       {
-        Console.WriteLine($"Is your number higher, lower, or equal to {guess}?");
-        response = Console.ReadLine();
-        if (response == "higher")
+        Console.WriteLine();
+        Console.WriteLine($"Is your number {guess}? (y/n)");
+        yesOrNo = Console.ReadLine();
+        if (yesOrNo == "y" || yesOrNo == "Y")
         {
-          lower = guess + 1;
-          guessCount++;
+          Console.WriteLine();
+          Console.WriteLine($"Your number is {guess}! It took me {guessCount} guesses.");
+          Console.WriteLine();
+
+          correct = true;
         }
-        else if (response == "lower")
+        else if (yesOrNo == "n" || yesOrNo == "N")
         {
-          upper = guess;
-          guessCount++;
-        }
-        guess = (upper + lower) / 2;
-        if (guess == 0)
-        {
-          guess = 1;
+          Console.WriteLine();
+          Console.WriteLine($"OK then. Is your number higher or lower than {guess}?");
+          higherOrLower = Console.ReadLine();
+          if (higherOrLower == "higher")
+          {
+            lower = guess + 1;
+            guessCount++;
+          }
+          else if (higherOrLower == "lower")
+          {
+            upper = guess;
+            guessCount++;
+          }
+          guess = (upper + lower) / 2;
+          if (guess == 0)
+          {
+            guess = 1;
+          }
         }
       }
-      Console.WriteLine($"Your number is {guess}! It took me {guessCount} guesses.");
+      Console.WriteLine("Would you like to play again? (y/n)");
+      playAgain = Console.ReadLine();
+      if (playAgain == "n" || yesOrNo == "N")
+      {
+        Console.WriteLine("OK, have a good day!");
+      }
+      else if (playAgain == "y" || yesOrNo == "Y")
+      {
+        correct = false;
+        lower = min;
+        upper = max;
+        guess = (upper - lower) / 2;
+        guessCount = 1;
+        StartGame(min, max);
+      }
     }
   }
 }
