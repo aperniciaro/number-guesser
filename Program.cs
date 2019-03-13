@@ -20,13 +20,17 @@ namespace number_guesser
         response = Console.ReadLine();
         if (response == "higher")
         {
-          lower = guess;
+          lower = guess + 1;
         }
         else if (response == "lower")
         {
-          upper = guess;
+          upper = guess - 1;
         }
         guess = (upper + lower) / 2;
+        if (guess == 0)
+        {
+          guess = 1;
+        }
       }
       Console.WriteLine($"Your number is {guess}!");
     }
